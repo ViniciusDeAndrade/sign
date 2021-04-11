@@ -16,12 +16,12 @@ class ClientController (
 ){
 
 
-
     @GetMapping
     fun listClient() = this.service.getClients()
 
     @PostMapping
     fun createClient(@RequestBody @Valid form : ClientForm, uriBuilder: UriComponentsBuilder): ResponseEntity<ClientDTO> {
+        println("bateu")
         val client = this.service.saveClient(form)
 
         val uri = uriBuilder.path("$CLIENT_BASE_PATH/{id}").buildAndExpand(client.id).toUri()

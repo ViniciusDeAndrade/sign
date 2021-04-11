@@ -1,6 +1,7 @@
 package br.com.sign.form
 
 import br.com.sign.model.Client
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -18,8 +19,10 @@ data class ClientForm(
 fun ClientForm.toModel() = Client (
     name = name,
     email = email,
-    password = hide(password)
+    password = encode(password)
 )
 
-// TODO() esconder o password
-fun hide(password: String) = password
+fun encode(password: String) =
+    BCryptPasswordEncoder().encode(
+        password
+)
