@@ -1,5 +1,6 @@
 package br.com.sign.controller
 
+import br.com.sign.constants.CLIENT_BASE_PATH
 import br.com.sign.dto.ClientDTO
 import br.com.sign.form.ClientForm
 import br.com.sign.service.ClientService
@@ -9,7 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder
 import javax.validation.Valid
 
 @RestController
-@RequestMapping(value = ["v1/client"])
+@RequestMapping(value = [CLIENT_BASE_PATH])
 class ClientController (
     val service: ClientService
 ){
@@ -23,9 +24,17 @@ class ClientController (
     fun createClient(@RequestBody @Valid form : ClientForm, uriBuilder: UriComponentsBuilder): ResponseEntity<ClientDTO> {
         val client = this.service.saveClient(form)
 
-        val uri = uriBuilder.path("v1/client/{id}").buildAndExpand(client.id).toUri()
+        val uri = uriBuilder.path("$CLIENT_BASE_PATH/{id}").buildAndExpand(client.id).toUri()
 
         return ResponseEntity.created(uri).body(client)
+    }
+
+    @DeleteMapping("id")
+    fun deleteClient(@PathVariable("id") id: Long): ResponseEntity.BodyBuilder {
+
+        this.service.deleteClient(id)
+
+        return ResponseEntity.ok()
     }
 
 }
