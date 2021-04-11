@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-
-br.com.sign.constants/DBConstants.kt
+#Setting this
+sign/src/main/kotlin/br/com/sign/constants/DBConstants.kt
