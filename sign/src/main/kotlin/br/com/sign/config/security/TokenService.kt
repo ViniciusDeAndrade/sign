@@ -25,4 +25,20 @@ class TokenService {
                 .compact()
     }
 
+    fun isTokenValid(token: String?): Boolean =
+        try {
+            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token)
+            true
+        }catch (ex: Exception){
+            false
+        }
+
+    fun getUserId(token: String): Long = Jwts.parser()
+            .setSigningKey(JWT_SECRET)
+            .parseClaimsJws(token)
+            .body.subject as Long
+
+
+
+
 }

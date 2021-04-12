@@ -1,6 +1,7 @@
 package br.com.sign.config.security
 
 import br.com.sign.constants.CLIENT_BASE_PATH
+import br.com.sign.repository.ClientRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -12,11 +13,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val tokenService: TokenService,
+    private val clientRepository: ClientRepository
 ) : WebSecurityConfigurerAdapter() {
 
     /**
@@ -38,6 +42,12 @@ class SecurityConfig(
             .antMatchers("/auth").permitAll()
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+                .addFilterBefore(
+                        AuthTokenFilter(
+                            clientRepository = clientRepository,
+                            tokenService = tokenService
+                ), UsernamePasswordAuthenticationFilter::class.java)
 
     }
 
