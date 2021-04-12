@@ -11,7 +11,7 @@ import javax.persistence.*
 data class Client(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
-        val id: Long = 0,
+    val id: Long = 0,
 
     @Column(name = "nm_cliente")
     val name: String,
@@ -28,7 +28,7 @@ data class Client(
             this.profiles
 
     override fun getPassword(): String = this.password
-    override fun getUsername(): String = this.username
+    override fun getUsername(): String = this.email
 
     override fun isEnabled(): Boolean = true
     override fun isCredentialsNonExpired(): Boolean = true

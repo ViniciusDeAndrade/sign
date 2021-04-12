@@ -36,7 +36,7 @@ class TokenService {
     fun getUserId(token: String): Long = Jwts.parser()
             .setSigningKey(JWT_SECRET)
             .parseClaimsJws(token)
-            .body.subject as Long
+            .body.subject.toLong()
 
 
 
