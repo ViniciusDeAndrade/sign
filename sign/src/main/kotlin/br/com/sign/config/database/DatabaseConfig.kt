@@ -1,4 +1,4 @@
-package br.com.sign.config
+package br.com.sign.config.database
 
 import br.com.sign.constants.*
 import org.springframework.boot.jdbc.DataSourceBuilder
