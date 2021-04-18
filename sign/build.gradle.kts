@@ -16,7 +16,10 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
+	implementation("org.slf4j:slf4j-api:1.7.30")
+//	testImplementation("org.slf4j:slf4j-log4j1:1.7.30")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")

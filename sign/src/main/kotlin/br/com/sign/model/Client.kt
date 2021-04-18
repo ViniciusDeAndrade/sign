@@ -20,6 +20,11 @@ data class Client(
     @Column(name = "secret_cliente")
     private val password: String,
 
+
+    @OneToOne(cascade = [CascadeType.PERSIST])
+    @JoinColumn(name = "clients")
+    private val address: Address,
+
     @ManyToMany(fetch = FetchType.EAGER)
     @Column(name = "perfis")
     private val profiles: MutableList<Profiles> = ArrayList<Profiles>()
