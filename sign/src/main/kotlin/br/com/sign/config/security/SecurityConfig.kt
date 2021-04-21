@@ -39,7 +39,7 @@ class SecurityConfig(
             .csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.GET, CLIENT_BASE_PATH).permitAll()
-            .antMatchers("/auth").permitAll()
+            .antMatchers("/auth/**").permitAll()
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()

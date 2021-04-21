@@ -14,8 +14,8 @@ data class Client(
     val id: Long = 0,
 
     @Column(name = "nm_cliente")
-    val name: String,
-    @Column(name = "email_cliente")
+    val name: String? = "",
+    @Column(name = "email_cliente", unique = true)
     val email: String,
     @Column(name = "secret_cliente")
     private val password: String,
@@ -23,7 +23,7 @@ data class Client(
 
     @OneToOne(cascade = [CascadeType.PERSIST])
     @JoinColumn(name = "clients")
-    private val address: Address,
+    private val address: Address? = null,
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Column(name = "perfis")
@@ -43,6 +43,6 @@ data class Client(
 
 fun Client.toDTO() = ClientDTO(
         id = id,
-        name = name,
+        name = name ?: "",
         email = email
 )

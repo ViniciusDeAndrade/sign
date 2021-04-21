@@ -4,6 +4,7 @@ import br.com.sign.config.security.TokenService
 import br.com.sign.dto.TokenDTO
 import br.com.sign.form.LoginForm
 import br.com.sign.form.convert
+import br.com.sign.service.ClientService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.AuthenticationException
@@ -17,7 +18,8 @@ import javax.validation.Valid
 @RequestMapping("/auth")
 class AuthController (
     private val authManager: AuthenticationManager,
-    private val tokenService: TokenService
+    private val tokenService: TokenService,
+    private val clientService: ClientService
 ){
 
     @PostMapping
@@ -33,5 +35,12 @@ class AuthController (
              ResponseEntity.badRequest()
         }
 
+    @PostMapping("/newUser")
+    fun createNewUser(@RequestBody @Valid form: LoginForm) = try {
+        this.clientService.saveUser(form)
+        this.auth(form)
+    } catch (ex: AuthenticationException) {
+        ResponseEntity.badRequest()
+    }
 
 }

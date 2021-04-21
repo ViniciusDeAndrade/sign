@@ -11,5 +11,7 @@ data class LoginForm (
     @field:NotBlank
     val password: String
 )
+
 fun LoginForm.convert() = UsernamePasswordAuthenticationToken (email, password)
+
 

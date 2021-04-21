@@ -2,7 +2,6 @@ package br.com.sign.form
 
 import br.com.sign.model.Address
 import br.com.sign.model.Client
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -15,14 +14,13 @@ data class ClientForm(
     @field:Email
     @field:NotBlank
     val email: String,
-    @field:NotBlank
-    val password: String,
     val addressForm: AddressForm
 )
-fun ClientForm.toModel() = Client (
+fun ClientForm.toModel(id: Long, password: String) = Client (
+    id = id,
     name = name,
     email = email,
-    password = encode(password),
+    password = password,
         address = Address(
             street = addressForm.street,
             city = addressForm.city,
@@ -32,7 +30,3 @@ fun ClientForm.toModel() = Client (
         )
 )
 
-fun encode(password: String) =
-    BCryptPasswordEncoder().encode(
-        password
-)
