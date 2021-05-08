@@ -15,13 +15,18 @@ data class Client(
 
     @Column(name = "nm_cliente")
     val name: String? = "",
+
     @Column(name = "email_cliente", unique = true)
     val email: String,
+
     @Column(name = "secret_cliente")
     private val password: String,
 
+    @Column(name = "reset_token")
+    var resetToken: String = "",
 
-    @OneToOne(cascade = [CascadeType.PERSIST])
+
+    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "clients")
     private val address: Address? = null,
 
@@ -39,6 +44,9 @@ data class Client(
     override fun isCredentialsNonExpired(): Boolean = true
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
+    override fun toString(): String {
+        return "Client(name=$name, email='$email', resetToken='$resetToken', address=$address)"
+    }
 }
 
 fun Client.toDTO() = ClientDTO(
