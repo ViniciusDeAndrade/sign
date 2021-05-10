@@ -15,8 +15,7 @@ class ClientRecoveryService(
 
     fun forgottenPassword(email: String) {
         val clientOp = clientService.getClientByEmail(email = email)
-        if(!clientOp.isPresent) throw ApplicationException("Não foi encontrado um usuário com o email $email")
-        val client = clientOp.get()
+        val client = clientOp.orElseThrow { ApplicationException("Could not found an user with the email: $email") }
 
         client.resetToken = UUID.randomUUID().toString()
         clientService.updateClient(client)

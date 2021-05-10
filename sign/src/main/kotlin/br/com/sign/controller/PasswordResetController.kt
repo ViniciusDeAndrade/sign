@@ -4,6 +4,7 @@ import br.com.sign.form.ForgotPasswordForm
 import br.com.sign.form.ResetPasswordDataForm
 import br.com.sign.service.ClientRecoveryService
 import org.springframework.context.MessageSource
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -21,17 +22,19 @@ class PasswordResetController(
      * It will return a secure token
      */
     @PostMapping("/request")
-    fun resetPassword(@RequestBody forgotPasswordForm: ForgotPasswordForm, redirectAttributes: RedirectAttributes) {
-        clientRecoveryService.forgottenPassword(forgotPasswordForm.email);
+    fun resetPassword(@RequestBody resetPasswordDataForm: ResetPasswordDataForm, redirectAttributes: RedirectAttributes) {
+        clientRecoveryService.forgottenPassword(resetPasswordDataForm.email);
     }
 
     @GetMapping("/change")
-    fun changePassword(
-        @RequestParam(required = false) token: String,
-        redirectAttributes: RedirectAttributes,
-        model: Model
-    ) = ""
+    fun changePassword() = "forgot_password_form"
 
     @PostMapping("/change")
-    fun changePassword(resetPasswordData: ResetPasswordDataForm, model: Model) = ""
+    fun changePassword(forgotPasswordForm: ForgotPasswordForm, model: Model): String {
+        println(forgotPasswordForm)
+        return "redirect:/forgot_password_succeed"
+
+    }
+
+
 }
