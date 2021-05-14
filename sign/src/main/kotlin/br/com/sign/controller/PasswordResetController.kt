@@ -32,9 +32,11 @@ class PasswordResetController(
     @PostMapping("/change")
     fun changePassword(forgotPasswordForm: ForgotPasswordForm, model: Model): String {
         println(forgotPasswordForm)
-        return "redirect:/forgot_password_succeed"
+        return "redirect:/password/succeed"
 
     }
 
+    @GetMapping("/succeed")
+    fun succeed() = "forgot_password_succeed"
 
 }
