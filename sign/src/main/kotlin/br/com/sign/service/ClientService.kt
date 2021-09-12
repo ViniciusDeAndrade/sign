@@ -54,10 +54,11 @@ class ClientService(
 
     fun getClientByEmail(email: String) = this.clienteRepository.findByEmail(email = email)
 
-    fun getClientByResetToken(resetToken: String) = this.clienteRepository.findByResetToken(resetToken = resetToken)
 
     @Transactional
     fun updateClient(client: Client) = this.clienteRepository.save(client)
+
+    fun findByResetToken(token: String) = this.clienteRepository.findByResetToken(token)
 
 }
 

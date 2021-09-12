@@ -4,11 +4,10 @@ import br.com.sign.form.ForgotPasswordForm
 import br.com.sign.form.ResetPasswordDataForm
 import br.com.sign.service.ClientRecoveryService
 import org.springframework.context.MessageSource
-import org.springframework.http.ResponseEntity
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @RequestMapping("password")
 @Controller
@@ -21,9 +20,29 @@ class PasswordResetController(
      * this method will deal with the link "forgot password" on the front end.
      * It will return a secure token
      */
-    @PostMapping("/request")
-    fun resetPassword(@RequestBody resetPasswordDataForm: ResetPasswordDataForm, redirectAttributes: RedirectAttributes) {
-        clientRecoveryService.forgottenPassword(resetPasswordDataForm.email);
+    @PostMapping(
+        value = ["/reset"],
+        consumes = [
+            MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            MediaType.APPLICATION_JSON_VALUE
+        ]
+    )
+    fun resetPassword(
+        @RequestParam token: String,
+        @RequestBody resetPasswordDataForm: ResetPasswordDataForm
+    ): String {
+        clientRecoveryService.updatePassword(resetPasswordDataForm);
+        return "redirect:/password/succeed"
+    }
+
+    @GetMapping("/reset")
+    fun getResetPasswordPage(
+        @RequestParam token: String,
+        model: Model
+    ) : String {
+        val client = clientRecoveryService.getClientByToken(token)
+        model.addAttribute("token", token)
+        return "password_change"
     }
 
     @GetMapping("/change")
@@ -31,7 +50,7 @@ class PasswordResetController(
 
     @PostMapping("/change")
     fun changePassword(forgotPasswordForm: ForgotPasswordForm, model: Model): String {
-        println(forgotPasswordForm)
+        clientRecoveryService.forgottenPassword(forgotPasswordForm.email)
         return "redirect:/password/succeed"
 
     }

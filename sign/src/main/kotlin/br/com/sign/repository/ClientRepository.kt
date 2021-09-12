@@ -7,5 +7,5 @@ import java.util.*
 interface ClientRepository: JpaRepository<Client, Long> {
     fun findByEmail(email: String): Optional<Client>
 
-    fun findByResetToken(resetToken: String): Optional<Client>
+    fun findByResetToken(resetToken: String): Client?
 }
