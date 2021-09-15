@@ -42,8 +42,8 @@ class ClientRecoveryService(
         passwordResetEmail.setFrom("viniciusclo@gmail.com")
         passwordResetEmail.setTo(client.email)
         passwordResetEmail.setSubject("Reset Password")
-        passwordResetEmail.setText("To reset your password, click the link below DOING IT" +
-                "/password/reset?token=${client.resetToken}")
+        passwordResetEmail.setText("To reset your password, click the link below DOING IT " +
+                "http://localhost:8080/password/reset?token=${client.resetToken}")
         emailService.sendEmail(passwordResetEmail)
     }
 
