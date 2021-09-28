@@ -6,6 +6,7 @@ import br.com.sign.form.ClientForm
 import br.com.sign.form.ResetPasswordDataForm
 import br.com.sign.model.Client
 import br.com.sign.model.toDTO
+import br.com.sign.utils.encode
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.stereotype.Service
 import java.util.*
@@ -20,7 +21,10 @@ class ClientRecoveryService(
         if(resetPasswordDataForm.password != resetPasswordDataForm.repeatedPassword) throw ApplicationException("As senhas não conferem")
         val client = clientService.findByResetToken(resetPasswordDataForm.token) ?: throw ApplicationException("client.not.found")
         clientService.updateClient(
-            client.copy(password = resetPasswordDataForm.password, resetToken = "")
+            client.copy(
+                password = encode(resetPasswordDataForm.password),
+                resetToken = ""
+            )
         )
     }
 
