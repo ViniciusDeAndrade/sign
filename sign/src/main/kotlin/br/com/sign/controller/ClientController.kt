@@ -25,7 +25,7 @@ class ClientController (
         return ResponseEntity.created(uri).body(client)
     }
 
-    @DeleteMapping("id")
+    @DeleteMapping("{id}")
     fun deleteClient(@PathVariable("id") id: Long): ResponseEntity.BodyBuilder {
 
         this.service.deleteClient(id)

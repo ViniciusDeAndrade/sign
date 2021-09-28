@@ -26,4 +26,9 @@ data class Address (
 
     @OneToMany(mappedBy = "address")
     val clients: List<Client>? = null
-)
+) {
+    override fun toString(): String {
+        return "Address(street='$street', number='$number', neighborhood='$neighborhood', city='$city', state='$state')"
+    }
+}
+

@@ -1,10 +1,8 @@
 package br.com.sign.config.security
 
-import br.com.sign.constants.CLIENT_BASE_PATH
 import br.com.sign.repository.ClientRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -38,8 +36,8 @@ class SecurityConfig(
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers(HttpMethod.GET, CLIENT_BASE_PATH).permitAll()
             .antMatchers("/auth/**").permitAll()
+            .antMatchers("/password/**").permitAll()
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()

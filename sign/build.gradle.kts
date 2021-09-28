@@ -19,7 +19,8 @@ repositories {
 
 dependencies {
 	implementation("org.slf4j:slf4j-api:1.7.30")
-//	testImplementation("org.slf4j:slf4j-log4j1:1.7.30")
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -29,10 +30,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.withType<KotlinCompile> {
