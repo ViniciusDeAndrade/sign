@@ -29,7 +29,7 @@ class PasswordResetController(
     )
     fun resetPassword(
         @RequestParam token: String,
-        @RequestBody resetPasswordDataForm: ResetPasswordDataForm
+        resetPasswordDataForm: ResetPasswordDataForm
     ): String {
         clientRecoveryService.updatePassword(resetPasswordDataForm);
         return "redirect:/password/succeed"
