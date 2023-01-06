@@ -4,6 +4,7 @@ import br.com.sign.constants.CLIENT_BASE_PATH
 import br.com.sign.dto.ClientDTO
 import br.com.sign.form.ClientForm
 import br.com.sign.service.ClientService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
@@ -12,6 +13,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping(value = [CLIENT_BASE_PATH])
 class ClientController (
+    @Autowired
     val service: ClientService
 ){
 
@@ -26,11 +28,12 @@ class ClientController (
     }
 
     @DeleteMapping("{id}")
-    fun deleteClient(@PathVariable("id") id: Long): ResponseEntity.BodyBuilder {
+    fun deleteClient(@PathVariable("id") id: Long) =
+        this.service.deleteClient(id).let {
+            ResponseEntity.noContent()
+        }
 
-        this.service.deleteClient(id)
 
-        return ResponseEntity.ok()
-    }
+
 
 }

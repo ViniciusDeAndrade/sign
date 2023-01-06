@@ -9,6 +9,8 @@ import br.com.sign.model.Client
 import br.com.sign.model.toDTO
 import br.com.sign.repository.ClientRepository
 import br.com.sign.utils.encode
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -17,6 +19,7 @@ class ClientService(
         private val clienteRepository: ClientRepository
 ) {
 
+    private val log: Logger = LoggerFactory.getLogger(ClientService::class.java)
 
     @Transactional
     fun saveClient(form: ClientForm): ClientDTO {
