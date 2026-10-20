@@ -1,27 +1,39 @@
 # sign
-sign project is a demo to demonstrate the knowledge of the author.
 
-### Spring Starters, Frameworks and Libraries
-- [x] Spring Data
-- [x] Spring Security
-- [x] Spring Web
-- [x] Bean Validation
-- [x] OpenAPI & Swagger
+Demo Spring Boot (Kotlin) com autenticação JWT, clientes e recuperação de senha.
 
-### Features
-- [x] get all clients
-- [x] set a client
-- [x] delete a client 
-- [x] login 
-- [x] recovery password by sending email
+## Stack
 
-#### Run the project
+- Spring Boot 3.5, Java 17, Kotlin 2.2
+- Spring Data JPA, Security, Validation, Mail, Thymeleaf
+- springdoc-openapi
+- Testes unitários: Kotest + MockK
 
-to run the project you should set a spring profile variable in VM arguments of your ide. 
-It can be "dev" (recommended) or "prd".
+## Como rodar
 
-Ex: Set in your VM Option, on run configuration: 
-##### -Dspring.profiles.active=dev
+Na raiz do repositório:
 
-access http://localhost:8080/swagger-ui.html#/ to check the endpoints.
+```bash
+./gradlew bootRun
+```
 
+Perfil recomendado: `dev`.
+
+- PowerShell: `$env:SPRING_PROFILES_ACTIVE="dev"`
+- JVM: `-Dspring.profiles.active=dev`
+
+Variáveis úteis:
+
+| Variável | Uso |
+|---|---|
+| `MYSQL_HOST`, `MYSQL_USER`, `MYSQL_PASSWORD` | banco |
+| `JWT_SECRET` | chave HMAC (mín. 32 caracteres) |
+| `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD` | SMTP (Mailtrap no `dev`) |
+
+OpenAPI: http://localhost:8080/swagger-ui/index.html
+
+## Testes
+
+```bash
+./gradlew test
+```
