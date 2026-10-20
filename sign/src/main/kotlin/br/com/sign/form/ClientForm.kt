@@ -30,4 +30,3 @@ fun ClientForm.toModel(id: Long, password: String) = Client (
         )
 )
 
-
