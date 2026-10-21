@@ -14,11 +14,23 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
   mailpit:
     image: axllent/mailpit
     ports:
       - "127.0.0.1:1025:1025"
       - "127.0.0.1:8025:8025"
+
+  app:
+    build: .
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: mysql
+      MAIL_HOST: mailpit
+    ports:
+      - "8080:8080"
 
 volumes:
   mysql-data:
