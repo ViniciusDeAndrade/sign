@@ -38,6 +38,7 @@ class SecurityConfig(
             .authorizeRequests()
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/password/**").permitAll()
+            .antMatchers("/actuator/health/**").permitAll()
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
